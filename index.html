@@ -154,6 +154,17 @@
     transition: all 0.15s ease;
     position: relative;
   }
+  /* Compact dropzone on non-upload pages */
+  .dropzone.dz-compact {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+  }
+  .dropzone.dz-compact .dz-title { font-size: 13px; margin: 0; }
+  .dropzone.dz-compact .dz-sub,
+  .dropzone.dz-compact .dz-formats { display: none; }
   .dropzone:hover, .dropzone.drag {
     border-color: var(--accent);
     background: var(--bg-elevated);
@@ -2734,6 +2745,23 @@
     pointer-events: none;
   }
 
+  /* Drag handle */
+  .sl-drag {
+    font-size: 10px;
+    color: rgba(244,240,232,0.25);
+    cursor: grab;
+    letter-spacing: -2px;
+    margin-right: -4px;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .sidebar-link:hover .sl-drag { color: rgba(244,240,232,0.5); }
+  .sidebar-link.dragging { opacity: 0.4; }
+  .sidebar-link.drag-over {
+    border-color: var(--accent);
+    background: rgba(138,59,30,0.2);
+  }
+
   .sidebar-divider {
     border: none;
     border-top: 1px solid rgba(255,255,255,0.07);
@@ -3304,33 +3332,50 @@
       <div class="sb-title">Field Sales<br><em>Intelligence</em></div>
     </div>
 
-    <div class="sidebar-section">
-      <div class="sidebar-section-label">OKR</div>
-
-      <a href="#" class="sidebar-link active">
-        <span class="sl-icon">◈</span>
-        <span>OKR Pacing &amp; Gaps</span>
-      </a>
-    </div>
-
-    <div class="sidebar-divider"></div>
-
-    <div class="sidebar-section">
-      <div class="sidebar-section-label">Loyalty</div>
-
-      <a href="#business-drivers" class="sidebar-link" id="sb-loyalty" onclick="
-        event.preventDefault();
-        document.querySelectorAll('.tableau-tab').forEach(t=>t.classList.remove('active'));
-        document.querySelectorAll('.tableau-pane').forEach(p=>p.classList.remove('active'));
-        document.getElementById('tb-loyalty').classList.add('active');
-        document.querySelector('[onclick*=tb-loyalty]').classList.add('active');
-        document.getElementById('business-drivers').scrollIntoView({behavior:'smooth',block:'start'});
-        document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
-        this.classList.add('active');
-      ">
-        <span class="sl-icon">◑</span>
-        <span>Loyalty Campaigns</span>
-      </a>
+    <div class="sidebar-section" style="padding-bottom:0;">
+      <div class="sidebar-section-label">Navigation</div>
+      <div id="sidebar-nav-items">
+        <a href="#" class="sidebar-link active" data-page="summary" draggable="true" onclick="event.preventDefault();showPage('summary',this)">
+          <span class="sl-drag" title="Drag to reorder">⋮⋮</span>
+          <span class="sl-icon">◈</span>
+          <span>Summary</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="marketing" draggable="true" onclick="event.preventDefault();showPage('marketing',this)">
+          <span class="sl-drag" title="Drag to reorder">⋮⋮</span>
+          <span class="sl-icon">▲</span>
+          <span>Marketing</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="outputs" draggable="true" onclick="event.preventDefault();showPage('outputs',this)">
+          <span class="sl-drag" title="Drag to reorder">⋮⋮</span>
+          <span class="sl-icon">⊕</span>
+          <span>Outputs &amp; Inputs</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="loyalty" draggable="true" onclick="event.preventDefault();showPage('loyalty',this)">
+          <span class="sl-drag" title="Drag to reorder">⋮⋮</span>
+          <span class="sl-icon">◑</span>
+          <span>Loyalty</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="merchant" draggable="true" onclick="event.preventDefault();showPage('merchant',this)">
+          <span class="sl-drag" title="Drag to reorder">⋮⋮</span>
+          <span class="sl-icon">◻</span>
+          <span>Merchant Insights</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="engagement" draggable="true" onclick="event.preventDefault();showPage('engagement',this)">
+          <span class="sl-drag" title="Drag to reorder">⋮⋮</span>
+          <span class="sl-icon">◎</span>
+          <span>Engagement</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="bizdriv" draggable="true" onclick="event.preventDefault();showPage('bizdriv',this)">
+          <span class="sl-drag" title="Drag to reorder">⋮⋮</span>
+          <span class="sl-icon">◇</span>
+          <span>Business Drivers</span>
+        </a>
+        <a href="#" class="sidebar-link" data-page="uploads" draggable="true" onclick="event.preventDefault();showPage('uploads',this)">
+          <span class="sl-drag" title="Drag to reorder">⋮⋮</span>
+          <span class="sl-icon">↑</span>
+          <span>Uploads &amp; Library</span>
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -4805,8 +4850,28 @@ function render() {
   if (hasData) renderSummary();
   if (hasForecast) renderWhatIf();
   if (hasDpLeads) renderDashPassLeads();
+  renderWowPanel(); // always keep WoW section in sync with state
   renderJumpNav();
   updateScopeMeta();
+
+  // Re-apply page filter after render (render() sets .visible classes; page filter adds display:none overrides)
+  if (typeof currentPage !== 'undefined' && typeof PAGE_MAP !== 'undefined') {
+    const cfg = PAGE_MAP[currentPage] || { sections: [] };
+    if (typeof ALL_PAGE_SECTIONS !== 'undefined') {
+      ALL_PAGE_SECTIONS.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (cfg.sections.includes(id)) el.style.removeProperty('display');
+        else el.style.display = 'none';
+      });
+    }
+    if (typeof UPLOAD_ONLY_ELS !== 'undefined') {
+      UPLOAD_ONLY_ELS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = cfg.uploadFocus ? '' : 'none';
+      });
+    }
+  }
 }
 
 // Update the scope bar meta line with rep counts in current view
@@ -10404,6 +10469,131 @@ document.addEventListener('click', (e) => {
   section.classList.toggle('collapsed');
   saveCollapsedSections();
 });
+
+// ═══════════════════════════════════════════════════════════════
+//  PAGE NAVIGATION — sidebar tabs show/hide content sections
+// ═══════════════════════════════════════════════════════════════
+
+let currentPage = 'summary';
+
+const PAGE_MAP = {
+  summary:    { sections: ['sec-summary','sec-notes','wow-summary','history-section'], tableau: null },
+  marketing:  { sections: ['sec-levers','sec-pipeline-pacing','sec-whatif','sec-detractors'], tableau: 'tb-mktg' },
+  outputs:    { sections: ['sec-forecast'], tableau: null },
+  loyalty:    { sections: ['sec-dpleads','business-drivers'], tableau: 'tb-loyalty' },
+  merchant:   { sections: ['sec-detractors','sec-soft-churn','sec-pipeline-pacing'], tableau: null },
+  engagement: { sections: ['sec-mxeng'], tableau: null },
+  bizdriv:    { sections: ['business-drivers'], tableau: null },
+  uploads:    { sections: ['history-section'], tableau: null, uploadFocus: true },
+};
+
+const ALL_PAGE_SECTIONS = [
+  'sec-summary','sec-notes','sec-forecast','sec-levers','sec-pipeline-pacing',
+  'sec-detractors','sec-soft-churn','sec-dpleads','sec-whatif','sec-mxeng',
+  'wow-summary','history-section','business-drivers'
+];
+
+// Upload-area elements shown only on Uploads tab
+const UPLOAD_ONLY_ELS = ['upload-checklist','file-status','snapshots-row'];
+
+function showPage(page, linkEl) {
+  currentPage = page;
+
+  // Update sidebar active state
+  document.querySelectorAll('#sidebar-nav-items .sidebar-link').forEach(l => l.classList.remove('active'));
+  if (linkEl) linkEl.classList.add('active');
+  else {
+    const target = document.querySelector(`[data-page="${page}"]`);
+    if (target) target.classList.add('active');
+  }
+
+  const cfg = PAGE_MAP[page] || { sections: [], tableau: null };
+
+  // Show/hide content sections
+  ALL_PAGE_SECTIONS.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (cfg.sections.includes(id)) {
+      el.style.removeProperty('display');
+    } else {
+      el.style.display = 'none';
+    }
+  });
+
+  // Upload-only elements: show on uploads page, hide elsewhere
+  UPLOAD_ONLY_ELS.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = cfg.uploadFocus ? '' : 'none';
+  });
+
+  // Dropzone: visible on all pages but compact on non-upload pages
+  const dz = document.getElementById('dropzone');
+  if (dz) dz.classList.toggle('dz-compact', !cfg.uploadFocus);
+
+  // Activate tableau tab if specified
+  if (cfg.tableau) {
+    document.querySelectorAll('.tableau-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tableau-pane').forEach(p => p.classList.remove('active'));
+    const pane = document.getElementById(cfg.tableau);
+    if (pane) pane.classList.add('active');
+    const tabBtn = document.querySelector(`[onclick*="${cfg.tableau}"]`);
+    if (tabBtn) tabBtn.classList.add('active');
+  }
+
+  // Scroll main area to top
+  const main = document.querySelector('.app-main');
+  if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Re-run render so section visibility respects current page
+  if (typeof render === 'function') render();
+}
+
+// ── Sidebar drag-to-reorder ──────────────────────────────────────
+function initSidebarDrag() {
+  const container = document.getElementById('sidebar-nav-items');
+  if (!container) return;
+  let dragSrc = null;
+
+  container.querySelectorAll('.sidebar-link').forEach(item => {
+    item.addEventListener('dragstart', e => {
+      dragSrc = item;
+      setTimeout(() => item.classList.add('dragging'), 0);
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    item.addEventListener('dragend', () => {
+      item.classList.remove('dragging');
+      container.querySelectorAll('.sidebar-link').forEach(i => i.classList.remove('drag-over'));
+      dragSrc = null;
+    });
+    item.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      if (item !== dragSrc) {
+        container.querySelectorAll('.sidebar-link').forEach(i => i.classList.remove('drag-over'));
+        item.classList.add('drag-over');
+      }
+    });
+    item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
+    item.addEventListener('drop', e => {
+      e.preventDefault();
+      item.classList.remove('drag-over');
+      if (!dragSrc || dragSrc === item) return;
+      const items = [...container.querySelectorAll('.sidebar-link')];
+      const srcIdx = items.indexOf(dragSrc);
+      const dstIdx = items.indexOf(item);
+      if (srcIdx < dstIdx) container.insertBefore(dragSrc, item.nextSibling);
+      else container.insertBefore(dragSrc, item);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initSidebarDrag();
+  showPage('summary', document.querySelector('[data-page="summary"]'));
+});
+
+// ── Compact dropzone style for non-upload pages ──────────────────
 
 // Team scope tab wiring
 document.querySelectorAll('.ts-tab').forEach(tab => {

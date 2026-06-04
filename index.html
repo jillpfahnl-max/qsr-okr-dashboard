@@ -3384,7 +3384,7 @@
   <header class="masthead">
     <div>
       <div class="eyebrow">IAM · QSR Team</div>
-      <h1>QSR OKRs &amp; <em>Deep Dives</em></h1>
+      <h1>QSR OKR <em>Summary</em></h1>
     </div>
     <div class="meta" id="meta-box">
       <span><strong>NO DATA LOADED</strong></span><br>
@@ -10476,14 +10476,14 @@ document.addEventListener('click', (e) => {
 let currentPage = 'summary';
 
 const PAGE_MAP = {
-  summary:    { sections: ['sec-summary','sec-notes','wow-summary','history-section'], tableau: null },
-  marketing:  { sections: ['sec-levers','sec-pipeline-pacing','sec-whatif','sec-detractors'], tableau: 'tb-mktg' },
-  outputs:    { sections: ['sec-forecast'], tableau: null },
-  loyalty:    { sections: ['sec-dpleads','business-drivers'], tableau: 'tb-loyalty' },
-  merchant:   { sections: ['sec-detractors','sec-soft-churn','sec-pipeline-pacing'], tableau: null },
-  engagement: { sections: ['sec-mxeng'], tableau: null },
-  bizdriv:    { sections: ['business-drivers'], tableau: null },
-  uploads:    { sections: ['history-section'], tableau: null, uploadFocus: true },
+  summary:    { sections: ['sec-summary','sec-notes','wow-summary','history-section'], tableau: null,        title: 'QSR OKR <em>Summary</em>',                eyebrow: 'IAM · QSR Team' },
+  marketing:  { sections: ['sec-levers','sec-pipeline-pacing','sec-whatif','sec-detractors'], tableau: 'tb-mktg', title: 'Marketing <em>Revenue</em>',           eyebrow: 'IAM · QSR Team' },
+  outputs:    { sections: ['sec-forecast'], tableau: null,                                                  title: 'Outputs &amp; <em>Inputs</em>',             eyebrow: 'IAM · QSR Team' },
+  loyalty:    { sections: ['sec-dpleads','business-drivers'], tableau: 'tb-loyalty',                        title: 'Loyalty <em>Campaigns</em>',               eyebrow: 'IAM · QSR Team' },
+  merchant:   { sections: ['sec-detractors','sec-soft-churn','sec-pipeline-pacing'], tableau: null,         title: 'Merchant <em>Insights</em>',               eyebrow: 'IAM · QSR Team' },
+  engagement: { sections: ['sec-mxeng'], tableau: null,                                                     title: 'GOV <em>Engagement</em>',                  eyebrow: 'IAM · QSR Team' },
+  bizdriv:    { sections: ['business-drivers'], tableau: null,                                              title: 'Business <em>Drivers</em>',                eyebrow: 'IAM · QSR Team' },
+  uploads:    { sections: ['history-section'], tableau: null, uploadFocus: true,                            title: 'Uploads &amp; <em>Library</em>',            eyebrow: 'IAM · QSR Team' },
 };
 
 const ALL_PAGE_SECTIONS = [
@@ -10538,6 +10538,16 @@ function showPage(page, linkEl) {
     if (pane) pane.classList.add('active');
     const tabBtn = document.querySelector(`[onclick*="${cfg.tableau}"]`);
     if (tabBtn) tabBtn.classList.add('active');
+  }
+
+  // Update masthead title and eyebrow to match the current page
+  if (cfg.title) {
+    const h1 = document.querySelector('.masthead h1');
+    if (h1) h1.innerHTML = cfg.title;
+  }
+  if (cfg.eyebrow) {
+    const ey = document.querySelector('.masthead .eyebrow');
+    if (ey) ey.textContent = cfg.eyebrow;
   }
 
   // Scroll main area to top

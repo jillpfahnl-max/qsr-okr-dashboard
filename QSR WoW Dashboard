@@ -1,0 +1,65 @@
+{
+  "_note": "PLACEHOLDER DATA — generated as a scaffold while the Sigma AM Incentive Dash connection was down. Replace via scripts/refresh_data.py once wired up.",
+  "generated_at": "2026-07-09T00:00:00Z",
+  "weeks": [
+    "2026-06-08",
+    "2026-06-15",
+    "2026-06-22",
+    "2026-06-29",
+    "2026-07-06"
+  ],
+  "teams": [
+    { "team": "Team Falcon", "reps": ["A. Rivera", "J. Chen", "M. Patel"] },
+    { "team": "Team Osprey", "reps": ["S. Kim", "T. Brooks"] },
+    { "team": "Team Kestrel", "reps": ["L. Nguyen", "D. Osei", "R. Fisher"] }
+  ],
+  "records": [
+    { "week": "2026-06-08", "rep": "A. Rivera", "team": "Team Falcon", "quota_attainment_pct": 88, "pipeline_value": 142000, "deals_closed": 3, "activations": 5 },
+    { "week": "2026-06-15", "rep": "A. Rivera", "team": "Team Falcon", "quota_attainment_pct": 91, "pipeline_value": 151000, "deals_closed": 4, "activations": 6 },
+    { "week": "2026-06-22", "rep": "A. Rivera", "team": "Team Falcon", "quota_attainment_pct": 95, "pipeline_value": 163000, "deals_closed": 4, "activations": 7 },
+    { "week": "2026-06-29", "rep": "A. Rivera", "team": "Team Falcon", "quota_attainment_pct": 93, "pipeline_value": 158000, "deals_closed": 3, "activations": 6 },
+    { "week": "2026-07-06", "rep": "A. Rivera", "team": "Team Falcon", "quota_attainment_pct": 99, "pipeline_value": 172000, "deals_closed": 5, "activations": 8 },
+
+    { "week": "2026-06-08", "rep": "J. Chen", "team": "Team Falcon", "quota_attainment_pct": 76, "pipeline_value": 98000, "deals_closed": 2, "activations": 3 },
+    { "week": "2026-06-15", "rep": "J. Chen", "team": "Team Falcon", "quota_attainment_pct": 80, "pipeline_value": 105000, "deals_closed": 2, "activations": 4 },
+    { "week": "2026-06-22", "rep": "J. Chen", "team": "Team Falcon", "quota_attainment_pct": 84, "pipeline_value": 112000, "deals_closed": 3, "activations": 4 },
+    { "week": "2026-06-29", "rep": "J. Chen", "team": "Team Falcon", "quota_attainment_pct": 82, "pipeline_value": 109000, "deals_closed": 2, "activations": 4 },
+    { "week": "2026-07-06", "rep": "J. Chen", "team": "Team Falcon", "quota_attainment_pct": 87, "pipeline_value": 118000, "deals_closed": 3, "activations": 5 },
+
+    { "week": "2026-06-08", "rep": "M. Patel", "team": "Team Falcon", "quota_attainment_pct": 102, "pipeline_value": 187000, "deals_closed": 5, "activations": 8 },
+    { "week": "2026-06-15", "rep": "M. Patel", "team": "Team Falcon", "quota_attainment_pct": 104, "pipeline_value": 191000, "deals_closed": 5, "activations": 9 },
+    { "week": "2026-06-22", "rep": "M. Patel", "team": "Team Falcon", "quota_attainment_pct": 99, "pipeline_value": 179000, "deals_closed": 4, "activations": 7 },
+    { "week": "2026-06-29", "rep": "M. Patel", "team": "Team Falcon", "quota_attainment_pct": 108, "pipeline_value": 203000, "deals_closed": 6, "activations": 10 },
+    { "week": "2026-07-06", "rep": "M. Patel", "team": "Team Falcon", "quota_attainment_pct": 111, "pipeline_value": 211000, "deals_closed": 6, "activations": 10 },
+
+    { "week": "2026-06-08", "rep": "S. Kim", "team": "Team Osprey", "quota_attainment_pct": 90, "pipeline_value": 133000, "deals_closed": 3, "activations": 5 },
+    { "week": "2026-06-15", "rep": "S. Kim", "team": "Team Osprey", "quota_attainment_pct": 93, "pipeline_value": 140000, "deals_closed": 4, "activations": 6 },
+    { "week": "2026-06-22", "rep": "S. Kim", "team": "Team Osprey", "quota_attainment_pct": 89, "pipeline_value": 129000, "deals_closed": 3, "activations": 5 },
+    { "week": "2026-06-29", "rep": "S. Kim", "team": "Team Osprey", "quota_attainment_pct": 96, "pipeline_value": 148000, "deals_closed": 4, "activations": 7 },
+    { "week": "2026-07-06", "rep": "S. Kim", "team": "Team Osprey", "quota_attainment_pct": 100, "pipeline_value": 155000, "deals_closed": 5, "activations": 8 },
+
+    { "week": "2026-06-08", "rep": "T. Brooks", "team": "Team Osprey", "quota_attainment_pct": 71, "pipeline_value": 87000, "deals_closed": 2, "activations": 3 },
+    { "week": "2026-06-15", "rep": "T. Brooks", "team": "Team Osprey", "quota_attainment_pct": 74, "pipeline_value": 91000, "deals_closed": 2, "activations": 3 },
+    { "week": "2026-06-22", "rep": "T. Brooks", "team": "Team Osprey", "quota_attainment_pct": 78, "pipeline_value": 96000, "deals_closed": 2, "activations": 4 },
+    { "week": "2026-06-29", "rep": "T. Brooks", "team": "Team Osprey", "quota_attainment_pct": 75, "pipeline_value": 93000, "deals_closed": 2, "activations": 3 },
+    { "week": "2026-07-06", "rep": "T. Brooks", "team": "Team Osprey", "quota_attainment_pct": 81, "pipeline_value": 99000, "deals_closed": 3, "activations": 4 },
+
+    { "week": "2026-06-08", "rep": "L. Nguyen", "team": "Team Kestrel", "quota_attainment_pct": 85, "pipeline_value": 120000, "deals_closed": 3, "activations": 5 },
+    { "week": "2026-06-15", "rep": "L. Nguyen", "team": "Team Kestrel", "quota_attainment_pct": 88, "pipeline_value": 126000, "deals_closed": 3, "activations": 5 },
+    { "week": "2026-06-22", "rep": "L. Nguyen", "team": "Team Kestrel", "quota_attainment_pct": 91, "pipeline_value": 134000, "deals_closed": 4, "activations": 6 },
+    { "week": "2026-06-29", "rep": "L. Nguyen", "team": "Team Kestrel", "quota_attainment_pct": 90, "pipeline_value": 131000, "deals_closed": 3, "activations": 6 },
+    { "week": "2026-07-06", "rep": "L. Nguyen", "team": "Team Kestrel", "quota_attainment_pct": 94, "pipeline_value": 139000, "deals_closed": 4, "activations": 7 },
+
+    { "week": "2026-06-08", "rep": "D. Osei", "team": "Team Kestrel", "quota_attainment_pct": 79, "pipeline_value": 101000, "deals_closed": 2, "activations": 4 },
+    { "week": "2026-06-15", "rep": "D. Osei", "team": "Team Kestrel", "quota_attainment_pct": 83, "pipeline_value": 108000, "deals_closed": 3, "activations": 4 },
+    { "week": "2026-06-22", "rep": "D. Osei", "team": "Team Kestrel", "quota_attainment_pct": 86, "pipeline_value": 114000, "deals_closed": 3, "activations": 5 },
+    { "week": "2026-06-29", "rep": "D. Osei", "team": "Team Kestrel", "quota_attainment_pct": 84, "pipeline_value": 110000, "deals_closed": 3, "activations": 4 },
+    { "week": "2026-07-06", "rep": "D. Osei", "team": "Team Kestrel", "quota_attainment_pct": 89, "pipeline_value": 117000, "deals_closed": 3, "activations": 5 },
+
+    { "week": "2026-06-08", "rep": "R. Fisher", "team": "Team Kestrel", "quota_attainment_pct": 97, "pipeline_value": 156000, "deals_closed": 4, "activations": 7 },
+    { "week": "2026-06-15", "rep": "R. Fisher", "team": "Team Kestrel", "quota_attainment_pct": 101, "pipeline_value": 165000, "deals_closed": 5, "activations": 8 },
+    { "week": "2026-06-22", "rep": "R. Fisher", "team": "Team Kestrel", "quota_attainment_pct": 98, "pipeline_value": 159000, "deals_closed": 4, "activations": 7 },
+    { "week": "2026-06-29", "rep": "R. Fisher", "team": "Team Kestrel", "quota_attainment_pct": 105, "pipeline_value": 172000, "deals_closed": 5, "activations": 9 },
+    { "week": "2026-07-06", "rep": "R. Fisher", "team": "Team Kestrel", "quota_attainment_pct": 103, "pipeline_value": 168000, "deals_closed": 5, "activations": 8 }
+  ]
+}
